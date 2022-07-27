@@ -1,4 +1,4 @@
-#Adventure In Time
+# Adventure In Time
 
 Source code for Adventure In Time, published by Phoenix Software, for Apple II and Atari 8-bit computers
 

@@ -1,0 +1,312 @@
+         ORG   SECOND+10  
+         LST   OFF
+INST     DCI   /                    ADVENTURE IN TIME/
+         DCI   /          /
+         DCI   /                    COPYRIGHT 1981 BY/
+         DCI   /                  PHOENIX SOFTWARE, INC/
+         DCI   /          /
+         DCI   /EONS      AGO A WEAPON WAS CONSTRUCTED WHICH COULD DESTROY THE HUMAN RACE AS WE KNOW IT. THE HIGH TRIBUNAL ORDAIW
+         DCI   /THIS      WEAPON BE DISMANTLED AND THE/
+         DCI   /PIECES    DISTRIBUTED THROUGHOUT MANY TIME PERIODS.
+         DCI   /          /
+         DCI   /IT        HAS BEEN DISCOVERED THAT THE FILE    HAS BEEN STOLEN DOCUMENTING THE/
+         DCI   /LOCATION  OF THE COMPONENTS./ 
+         DCI   /          /
+         DCI   /WHOEVER   HAS POSSESSION OF THE FILE CAN  CONTROL...OR DESTROY...THE WORLD AS WE  KNOW IT./
+         DCI   /          /
+         DCI   /          /
+         DCI   /             PRESS ANY KEY TO START THE GAME:/ 
+         DFB   00
+RMDIR    DFB   2,0,5,0,0,0,4,0,0,0 
+         DFB   3,0,0,0,1,0,0,0,0,0 
+         DFB   0,0,0,0,2,0,0,0,0,0 
+         DFB   0,0,1,0,0,0,0,0,0,0 
+         DFB   0,0,0,0,0,0,1,0,0,0 
+         DFB   0,0,7,0,0,0,12,0,0,0 
+         DFB   1,0,8,0,10,9,6,0,0,0 
+         DFB   0,0,0,0,0,0,7,0,0,0  
+         DFB   0,7,10,12,0,0,0,0,0,0 
+         DFB   7,0,11,0,12,0,9,0,0,0 
+         DFB   0,0,0,0,0,12,10,0,0,0 
+         DFB   10,11,0,0,0,0,6,9,0,0 
+LEVEL2   DFB   0,0,0,0,0,0,0,0,0,14 
+         DFB   15,0,0,0,0,0,0,0,13,0 
+         DFB   0,0,16,0,14,0,17,0,0,0 
+         DFB   0,0,0,0,0,0,15,0,0,0 
+         DFB   18,0,15,0,0,0,0,0,0,0 
+         DFB   0,0,19,0,17,0,0,0,0,0 
+         DFB   0,0,20,0,0,0,18,0,0,0 
+         DFB   22,0,21,0,0,0,19,0,0,0 
+         DFB   0,0,0,0,0,0,20,0,0,0 
+         DFB   0,0,23,0,20,0,24,0,0,0 
+         DFB   0,0,0,0,0,0,22,0,0,0 
+         DFB   0,0,22,0,0,0,25,0,0,0 
+         DFB   0,0,24,0,0,0,26,0,0,0 
+         DFB   0,0,25,0,27,0,0,0,0,0 
+         DFB   26,0,0,0,28,0,0,0,0,0 
+         DFB   27,0,0,0,29,0,0,0,0,0 
+         DFB   28,0,30,0,0,0,0,0,0,0 
+         DFB   0,0,14,0,0,0,29,0,0,0 
+LEVEL3   DFB   0,0,0,0,0,0,0,0,0,32 
+         DFB   0,0,0,0,0,0,33,34,31,0 
+         DFB   34,0,32,0,0,0,0,0,0,0 
+         DFB   40,36,35,32,33,0,0,0,0,0 
+         DFB   36,37,0,0,0,0,34,0,0,0 
+         DFB   39,0,0,0,35,34,0,0,0,0 
+         DFB   38,0,0,0,0,35,0,0,0,0 
+         DFB   0,0,0,0,37,0,0,0,0,0 
+         DFB   0,0,0,0,36,0,0,0,0,0 
+         DFB   0,0,0,0,34,0,0,0,0,0 
+LEVEL4   DFB   0,0,42,0,0,0,0,0,0,44 
+         DFB   43,0,0,0,0,0,41,0,0,0 
+         DFB   48,0,0,0,42,0,0,0,0,0 
+         DFB   47,0,0,0,0,0,45,0,41,0 
+         DFB   46,0,44,0,0,0,0,0,0,0 
+         DFB   0,0,0,0,45,0,0,0,0,0 
+         DFB   49,0,0,0,44,0,0,0,0,0 
+         DFB   50,0,0,0,43,0,0,0,0,0 
+         DFB   51,0,50,0,47,0,0,0,0,0 
+         DFB   0,0,0,0,48,0,49,0,0,0 
+         DFB   0,0,0,0,49,0,0,0,0,0  
+LEVEL5   DFB   0,0,0,0,0,0,0,0,0,54 
+         DFB   62,0,54,0,0,0,0,0,0,0 
+         DFB   63,0,55,0,0,0,53,0,52,0 
+         DFB   56,0,0,0,0,0,54,0,0,0 
+         DFB   0,0,57,0,55,0,0,0,0,0 
+         DFB   58,0,0,0,0,0,56,0,0,0 
+         DFB   0,0,0,0,57,0,59,0,0,0 
+         DFB   0,0,58,0,0,0,60,0,0,0 
+         DFB   0,0,59,0,63,0,61,0,0,0 
+         DFB   0,0,60,0,62,0,0,0,0,0 
+         DFB   61,0,0,0,53,0,0,0,0,0 
+         DFB   60,0,0,0,54,0,0,0,0,0 
+ROOM64   DFB   0,0,0,0,0,0,0,0,0,0
+ROOM65   DFB   0,0,0,0,0,0,66,0,0,0
+ROOM66   DFB   0,0,65,0,0,0,0,0,0,0
+RMDESC   DCI   /YOU'RE IN A LIVING ROOM./ 
+         DCI   /YOU'RE AT THE ENTRYWAY./ 
+         DCI   /YOU'RE AT A CLIFF./ 
+         DCI   /YOU'RE IN A KITCHEN./
+         DCI   /YOU'RE IN A DORMITORY./
+         DCI   /YOU'RE IN A GREENHOUSE./
+         DCI   /YOU'RE IN THE SECURITY ROOM./
+         DCI   /YOU'RE IN THE CONTROL ROOM./
+         DCI   /YOU'RE IN THE COMPUTER ROOM./
+         DCI   /YOU'RE IN A LABORATORY./
+         DCI   /YOU'RE IN A LIBRARY./
+         DCI   /YOU'RE IN A STOREROOM./
+         DCI   /YOU'RE AT A CLIFF./ 
+         DCI   /YOU'RE AT A CAVE ENTRANCE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE IN A CAVE./
+         DCI   /YOU'RE AT A CLIFF./ 
+         DCI   /YOU'RE IN THE DRUIDS' WOODS./
+         DCI   /YOU'RE IN THE DRUIDS' WOODS./
+         DCI   /YOU'RE AT STONEHENGE./ 
+         DCI   /YOU'RE IN THE DRUIDS' WOODS./
+         DCI   /YOU'RE IN THE DRUIDS' WOODS./
+         DCI   /YOU'RE IN THE DRUIDS' WOODS./
+         DCI   /YOU'RE IN THE DRUIDS' WOODS./
+         DCI   /YOU'RE IN A MEADOW./
+         DCI   /YOU'RE IN THE DRUIDS' WOODS./
+         DCI   /YOU'RE AT A CLIFF./ 
+         DCI   /YOU'RE ON THE APPIAN WAY./
+         DCI   /YOU'RE ON THE APPIAN WAY./
+         DCI   /YOU'RE ON THE APPIAN WAY./
+         DCI   /YOU'RE AT THE FORUM ENTRYWAY./
+         DCI   /YOU'RE IN THE FORUM./ 
+         DCI   /YOU'RE ON THE APPIAN WAY./
+         DCI   /YOU'RE ON THE GANGWAY TO COLOSSEUM./
+         DCI   /YOU'RE ON THE GANGWAY TO COLOSSEUM./
+         DCI   /YOU'RE IN THE COLLOSSEUM./
+         DCI   /YOU'RE IN THE ALCOVE OF THE SOOTHSAYER./
+         DCI   /YOU'RE AT A CLIFF./ 
+         DCI   /YOU'RE IN THE MESOZOIC FOREST./
+         DCI   /YOU'RE IN THE MESOZOIC FOREST./
+         DCI   /YOU'RE IN THE MESOZOIC FOREST./
+         DCI   /YOU'RE IN THE MESOZOIC FOREST./
+         DCI   /YOU'RE IN THE MESOZOIC FOREST./
+         DCI   /YOU'RE IN THE MESOZOIC FOREST./
+         DCI   /YOU'RE IN THE MESOZOIC FOREST./
+         DCI   /YOU'RE IN A MEADOW./
+         DCI   /YOU'RE IN THE MESOZOIC FOREST./
+         DCI   /YOU'RE STUCK IN A QUICKSAND BOG./
+         DCI   /YOU'RE IN A DANK SWAMP./
+RM64     DCI   /YOU'RE IN A LARGE OPEN FIELD./
+RM65     DCI   /YOU'RE INSIDE A BUILDING./
+RM66     DCI   /YOU'RE STANDING AT THE END OF A ROAD./
+DETAIL   DFB   145,148,149,150,151,32,152,38,48,63 
+         DFB   117,185,186,187,0,0,0,0,0,0 
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   188,189,190,191,192,70,193,194,75,195 
+         DFB   196,197,198,199,76,200,201,202,203,85 
+         DFB   86,204,205,206,207,208,209,210,211,87 
+         DFB   212,96,95,135,180,181 
+BENBEF   DFB   1,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0 
+COMMAND  ASC/N NE         E SE S SW W NW U D / 
+         ASC   /NORTH     NORTHEAST EAST SOUTHEAST SOUTH SOUTHWEST WEST NORTHWEST UP DOWN /
+         ASC   /GO        LOOK EXAMINE GET TAKE DROP /
+         ASC   /TAP       HIT PRESS PUSH MOVE /
+         ASC   /OPEN      JUMP LEAP READ PLANT /
+         ASC   /SOW       SAY UTTER PULL INSERT /
+         ASC   /INPUT     PUT PLACE FIRE KILL /
+         ASC   /ATTACK    PLAY CHARM RUB FEED /
+         ASC   /DRUG      POUR GIVE CLIMB DRINK /
+         ASC   /EAT       I INVEN INVENTORY HELP /
+         ASC   /HINT      SCORE SHOOT HAMMER PENCIL / 
+         ASC   /SYRINGE   ROBOT MACHINE CLOTH BROWN / 
+         ASC   /GREEN     TRANSLATOR LASER MANUAL PLANTS /
+         ASC   /FRONDS    BLUE SNAKE FER-DE-LANCE NOTEPAD /
+         ASC   /PAD       FLUTE POTION BOOK YELLOW /
+         ASC   /BOW       SEEDS VIOLIN BACK VIAL /
+         ASC   /RED       MICROFILM CONSOLE COMPUTER KEYBOARD /
+         ASC   /MICROSCOPE DRUIDS ALTAR NERO MEN /
+         ASC   /SOOTHSAYER TYRANOSAURUS DINOSAUR SIGN WALL /
+         ASC   /HUNTER    NOSTRADAMUS T1 T2 DIAL /
+         ASC   /LEVER     L99AV GUARD STORAGE COMPARTMENT /
+         ASC   /BUTTON    STUD FUCK SHIT YOU /
+         ASC   /2396      CARD PAPER CARPET PICTURE / 
+         ASC   /TURN      STRAIGHTEN F DATA XYZZY / 
+         ASC   /KEYS      LAMP FOOD BOTTLE PLACARD /
+         ASC   /QUIT      SAVE RESTORE ANIMALS GAME / 
+OBJVAL   DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,21,0,0
+         DFB   0,0,0,0,0,0,0,0,0,0
+         DFB   0,0,0,1,2,3,4,4,5,6
+         DFB   7,8,9,10,11
+         DFB   11,12,13,13,14,14,15,16,10,17
+         DFB   18,19,20,0,22,23,24,25,26,26
+         DFB   27,28,29,31,32
+         DFB   33,34,35,36,0,0,49,0,0,0
+         DFB   0,0,30,0,0,0,0,0,0,0
+         DFB   0,0,41,42,43,0,0,0,0,0 
+         DFB   44,45,46,47,48
+         DFB   0,0,0,37,0 
+OBJECT   DFB   3,0,0
+         DFB   4,0,0
+         DFB   1,0,0
+         DFB   7,0,0
+         DFB   10,0,0
+         DFB   11,0,41    
+         DFB   0,0,42     
+         DFB   12,0,0
+         DFB   12,0,0
+         DFB   11,0,0
+         DFB   0,0,0
+         DFB   11,0,43    
+         DFB   14,0,0
+         DFB   38,0,0
+         DFB   39,0,0
+         DFB   34,0,0
+         DFB   30,0,44    
+         DFB   23,0,0
+         DFB   40,0,0
+         DFB   46,0,0
+         DFB   51,0,0
+         DFB   0,0,0
+         DFB   50,0,45    
+         DFB   0,0,0
+         DFB   8,1,0
+         DFB   9,1,0
+         DFB   10,1,0
+         DFB   39,1,0
+         DFB   34,1,0
+         DFB   36,1,0
+         DFB   46,1,0
+         DFB   45,1,0
+         DFB   51,1,0
+         DFB   63,1,0
+         DFB   60,1,0
+         DFB   8,1,0
+         DFB   50,1,0
+         DFB   100,0,0
+         DFB   101,0,0
+         DFB   102,0,0
+         DFB   5,0,0
+         DFB   1,1,0
+         DFB   1,1,0
+         DFB   65,0,0
+         DFB   65,0,0
+         DFB   65,0,0
+         DFB   65,0,0
+         DFB   66,1,0
+         DFB   0,1,0
+OBJNAM   DCI   /HAMMER/
+         DCI   /PENCIL/
+         DCI   /SYRINGE/
+         DCI   /ROBOT/    
+         DCI   /CLOTH/    
+         DCI   /BROWN     CARD/
+         DCI   /GREEN     CARD/
+         DCI   /TRANSLATOR/
+         DCI   /LASER/    
+         DCI   /MANUAL/
+         DCI   /PLANTS/
+         DCI   /BLUE      CARD/
+         DCI   /SNAKE/    
+         DCI   /NOTEPAD/
+         DCI   /FLUTE/    
+         DCI   /POTION/
+         DCI   /YELLOW    CARD/
+         DCI   /BOW/      
+         DCI   /SEEDS/    
+         DCI   /VIOLIN/
+         DCI   /CHARM/    
+         DCI   /VIAL/     
+         DCI   /RED       CARD/
+         DCI   /MICROFILM/
+         DCI   /TIME      MACHINE CONSOLE/
+         DCI   /COMPUTER  KEYBOARD/
+         DCI   /MICROSCOPE/
+         DCI   /DRUIDS/
+         DCI   /STONE     ALTAR/
+         DCI   /GUARD/    
+         DCI   /NERO/     
+         DCI   /MEN       OF THE 1ST LEGION/
+         DCI   /SOOTHSAYER/
+         DCI   /TYRANOSAURUS REX/
+         DCI   /DINOSAUR  HERD/
+         DCI   /SIGN/     
+         DCI   /WILD      ANIMALS/
+         DCI   /DRUGGED   PLANTS/
+         DCI   /DEAD      SNAKE/
+         DCI   /SHATTERED VIAL/
+         DCI   /PAPER/
+         DCI   /CARPET/
+         DCI   /PICTURE/
+         DCI   /KEYS/
+         DCI   /LAMP/
+         DCI   /FOOD/
+         DCI   /BOTTLE    OF WATER/ 
+         DCI   /PLACARD/
+         DCI   /NOSTRADAMUS/
+OBDET    DFB   101,102,103,13,104,106,106,105,120,59 
+         DFB   107,106,65,72,108,109,106,110,111,112 
+         DFB   113,114,106,94,40,49,55,75,115,116 
+         DFB   81,76,86,9,87,39,85,90,118,119 
+         DFB   153,146,147,0,0,0,0,182,213  
+         CHN   SYSMSG

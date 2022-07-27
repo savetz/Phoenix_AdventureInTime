@@ -1,0 +1,854 @@
+         LST   OFF        
+START    EQU   $2B00      
+WNDLFT   EQU   $8E
+WNDWDTH  EQU   $8F
+WNDTOP   EQU   $90        
+WNDBTM   EQU   $91        
+CH       EQU   $92        
+CV       EQU   $93        
+SIGN     EQU   $94        
+ACL      EQU   $96        
+ACH      EQU   $97        
+AUXL     EQU   $98        
+KYBD     EQU   $2FC       
+PROMPT   EQU   $9A        
+YSAV1    EQU   $9B
+BASL     EQU   $9C
+BASH     EQU   $9D
+BAS2L    EQU   $9E
+BAS2H    EQU   $9F
+INVFLG   EQU   $A0
+SCREEN   EQU   $2E5
+IN       EQU   $600
+IOB      EQU   $C0
+BUFFER   EQU   $C2
+CKLIN    EQU   $D0
+ROOM     EQU   $D2        
+RMOLD    EQU   $D3        
+RMNEW    EQU   $D4        
+VERB     EQU   $D5
+HOLD     EQU   $D6
+TEMP1    EQU   $D7
+VERBH    EQU   $D8
+NOUNH    EQU   $D9
+POINT    EQU   $DA
+SPLIT    EQU   $DC        
+CARRY    EQU   $DD
+TIMET1   EQU   $DE
+TIMET2   EQU   $DF
+LEFT     EQU   $E0
+FLAG1    EQU   $E1
+FLAG2    EQU   $E2
+FLAG3    EQU   $E3
+FLAG4    EQU   $E4
+FLAG5    EQU   $E5
+KOUNT    EQU   $EA
+RMHOLD   EQU   $EB
+*
+GAME     ORG   START      
+         LDA   #$FF
+         STA   INVFLG
+         STA   KYBD
+         LDA   #00
+         STA   $2C6
+         STA   CH
+         STA   WNDTOP
+         STA   WNDLFT
+         LDA   #$28
+         STA   WNDWDTH
+         LDA   #$18
+         STA   WNDBTM
+         LDA   #$17
+         STA   CV
+         JSR   TABV
+         LDA   #00
+         STA   FLAG1
+         STA   FLAG2      
+         STA   FLAG3
+         STA   FLAG4
+         STA   FLAG5
+         STA   KOUNT
+         LDA   #01        
+         STA   ROOM
+         STA   RMOLD
+         STA   RMNEW
+         LDA   #41
+         STA   TIMET1
+         LDA   #41        
+         STA   TIMET2
+         LDA   #04        
+         STA   SPLIT
+         LDA   #$3E        
+         STA   PROMPT
+         LDA   #00
+         STA   CH
+         STA   CARRY
+         STA   WNDTOP
+         JSR   HOME
+         JSR   INSTR
+         LDA   #23
+         JSR   TABV
+         LDA   #10
+         JSR   SYSMSG
+         JMP   TEST
+TEST     LDA   ROOM
+         CMP   #15
+         BCC   TESTA
+         CMP   #31
+         BCS   TESTA
+         JMP   DARK
+TESTA    JSR   DESCRP
+         JSR   PDIR
+         JSR   POBJ
+         LDA   ROOM
+         CMP   #60
+         BEQ   DINO
+         CMP   #62
+         BEQ   TESTC
+         CMP   #63
+         BEQ   TESTC
+         LDA   TIMET2
+         CMP   #46
+         BNE   TESTB
+         LDA   ROOM
+         CMP   #3
+         BNE   TESTB
+         JMP   FINAL
+TESTB    JSR   MANDR
+         JMP   TEST
+DARK     LDA   #00
+         STA   WNDTOP
+         LDA   #05
+         STA   SPLIT
+         STA   WNDBTM
+         JSR   HOME       
+         LDA   #61
+         JSR   SYSMSG
+         LDA   #3
+         JSR   TABV       
+         LDA   #30
+         JSR   SYSMSG
+         JMP   TESTB
+TESTC    LDA   SPLIT      
+         STA   WNDTOP
+         LDA   #24
+         STA   WNDBTM
+         LDA   #23
+         JSR   TABV
+         JMP   DEADY
+DINO     LDA   ROOM
+         CMP   OBJECT+30
+         BEQ   DINEAT1
+         CMP   OBJECT+111
+         BEQ   DINEAT2
+         JMP   TESTB
+DINEAT1  LDA   SPLIT
+         STA   WNDTOP
+         LDA   #24
+         STA   WNDBTM
+         LDA   #23
+         JSR   TABV
+         LDA   #00
+         STA   OBJECT+30
+         LDA   #89
+         JSR   SYSMSG
+         JMP   TESTB
+DINEAT2  LDA   SPLIT
+         STA   WNDTOP
+         LDA   #24
+         STA   WNDBTM
+         LDA   #23
+         JSR   TABV
+         LDA   #00
+         STA   OBJECT+111
+         LDA   #172       
+         STA   DETAIL+59
+         STA   OBDET+34   
+         LDA   #91
+         JSR   SYSMSG
+         JMP   TESTB
+**********************
+* FINAL END OF GAME  *
+**********************
+FINAL    JSR   DESCRP
+         JSR   PDIR       
+         JSR   POBJ
+         LDA   ROOM
+         CMP   #03
+         BEQ   FINAL1
+         JMP   TEST
+FINAL1   JSR   MANDR
+         INC   FLAG5
+         LDA   FLAG5
+         CMP   #02
+         BCC   FINAL
+         LDA   #220
+         JSR   SYSMSG
+         LDA   #221
+         JSR   SYSMSG
+         JMP   DEADY
+**********************
+* GET COMMAND AND    *
+* TAKE ACTION.       *
+**********************
+MANDR    JSR   GET        
+         STX   TEMP1      
+         LDA   #$00
+         STA   HOLD
+         STA   NOUNH
+         STA   VERBH
+         TXA   
+         BEQ   TEND       
+         JSR   VERBFD
+         CPY   #$FF
+         BEQ   TENDV      
+         STY   VERBH
+         CPX   TEMP1
+         BCS   T1
+         INX
+         STX   HOLD
+         JSR   VERBFD     
+         CPY   #$FF
+         BEQ   TEND       
+         STY   NOUNH
+         CPY   #20
+         BCS   OTHER
+         LDA   VERBH
+         CMP   #20
+         BEQ   T1
+         JSR   BELL
+         LDA   #02        
+         JMP   SYSMSG
+TENDV    JMP   N33
+TEND     LDA   #178       
+TEND1    JSR   SYSMSG
+         LDA   #21
+         STA   CH
+         LDA   #22
+         JSR   TABV
+         LDY   HOLD
+CXX1     LDA   IN,Y
+         CMP   #$A0
+         BEQ   CXX2
+         CMP   #$8D
+         BEQ   CXX2
+         JSR   COUT
+         INY
+         JMP   CXX1
+CXX2     LDA   #$A7
+         JSR   COUT
+         LDA   #$8D
+         JSR   COUT
+         RTS
+T1       CPY   #20        
+         BCS   OTHER
+         CPY   #10        
+         BCS   T2         
+         JMP   RMFIND
+T2       TYA
+         SEC
+         SBC   #10
+         TAY
+         JMP   RMFIND
+OTHER    LDA   VERBH      
+         CMP   #57
+         BCC   N1
+         CMP   #60
+         BCS   N1
+         JMP   INVEN
+N1       CMP   #23
+         BCC   N2
+         CMP   #25
+         BCS   N2
+         JMP   TAKE
+N2       CMP   #25
+         BNE   N3
+         JMP   DROP
+N3       CMP   #21
+         BCC   N4
+         CMP   #23
+         BCS   N4
+         JMP   LOOK
+N4       CMP   #26
+         BCC   N5
+         CMP   #31
+         BCS   N5
+         JMP   PUSH
+N5       CMP   #31
+         BNE   N6
+         JMP   OPEN
+N6       CMP   #32
+         BCC   N7
+         CMP   #34
+         BCS   N7
+         JMP   JUMP
+N7       CMP   #34
+         BNE   N8
+         JMP   READ
+N8       CMP   #35
+         BCC   N9
+         CMP   #37
+         BCS   N9
+         JMP   PLANT
+N9       CMP   #37
+         BCC   N10
+         CMP   #39
+         BCS   N10
+         JMP   UTTER
+N10      CMP   #39
+         BNE   N11
+         JMP   PULL
+N11      CMP   #40
+         BNE   N12
+         JMP   INSERT
+N12      CMP   #41
+         BNE   N13
+         JMP   INPUT
+N13      CMP   #42
+         BCC   N14
+         CMP   #44
+         BCS   N14
+         JMP   PLACE
+N14      CMP   #60
+         BCC   N15
+         CMP   #62
+         BCS   N15
+         JMP   HELP
+N15      CMP   #44
+         BNE   N16
+         JMP   SHOOT
+N16      CMP   #63
+         BNE   N17
+         JMP   SHOOT
+N17      CMP   #128
+         BNE   N18
+         JMP   SHOOT
+N18      CMP   #106
+         BCC   N19
+         CMP   #108
+         BCS   N19
+         STA   NOUNH
+         LDA   #00
+         STA   HOLD
+         JMP   UTTER
+N19      CMP   #126
+         BCC   N20
+         CMP   #128
+         BCS   N20
+         JMP   PUSH       
+N20      CMP   #118
+         BCC   N21
+         CMP   #120
+         BCS   N21
+         JMP   FUCK
+N21      CMP   #45
+         BCC   N22
+         CMP   #47
+         BCS   N22
+         JMP   ATTACK
+N22      CMP   #47
+         BNE   N23
+         JMP   PLAY
+N23      CMP   #48
+         BNE   N24
+         JMP   CHARM
+N24      CMP   #49
+         BNE   N25
+         JMP   RUB
+N25      CMP   #50
+         BNE   N26
+         JMP   FEED
+N26      CMP   #51
+         BCC   N27
+         CMP   #53
+         BCS   N27
+         JMP   DRUG
+N27      CMP   #20
+         BNE   N28
+         JMP   CLIMB
+N28      CMP   #54
+         BNE   N29
+         JMP   CLIMB
+N29      CMP   #55
+         BCC   N30
+         CMP   #57
+         BCS   N30
+         JMP   DRINK
+N30      CMP   #62
+         BNE   N31
+         JMP   SCORE
+N31      CMP   #53
+         BNE   N32
+         JMP   DROP
+N32      CMP   #130
+         BNE   N33
+         JMP   XYZZY
+N33      CMP   #136
+         BNE   N34
+         JMP   QUIT
+N34      CMP   #137
+         BNE   N35
+         JMP   SAVE
+N35      CMP   #138
+         BNE   N36
+         JMP   RESTORE
+N36      LDA   #179       
+         JMP   TEND1      
+***********************
+*                     *
+*  VERB FIND RTN.     *
+*                     *
+***********************
+VERBFD   LDY   #$00
+         STY   VERB
+         LDX   HOLD       
+         LDA   #>COMMAND
+         STA   CKLIN
+         LDA   #<COMMAND
+         STA   CKLIN+1
+VBLOP    LDA   IN,X
+         CMP   (CKLIN),Y
+         BNE   VRB1
+         INX
+         CPX   TEMP1
+         BEQ   VBEND
+         LDA   IN,X
+         CMP   #$A0
+         BEQ   VBEND
+         JSR   CREEP
+VRB2     LDA   (CKLIN),Y
+         CMP   #$A0
+         BNE   VBLOP
+VRB1     LDA   (CKLIN),Y
+         CMP   #$A0
+         BEQ   VRB4
+         JSR   CREEP
+         JMP   VRB1
+VRB4     LDX   HOLD       
+         INC   VERB
+         LDA   VERB
+XXXXX    CMP   #141       
+         BEQ   WHAT
+         JSR   CREEP
+         JMP   VBLOP
+VBEND    JSR   CREEP      
+         LDA   (CKLIN),Y
+         CMP   #$A0
+         BNE   VRB1
+         LDY   VERB
+         RTS
+WHAT     LDA   VERBH
+         CMP   #37
+         BEQ   WHAT1
+         CMP   #38
+         BEQ   WHAT1
+         LDY   #$FF
+         RTS
+WHAT1    LDY   #$FE
+         RTS
+********************
+* FIND NEW ROOM    *
+********************
+RMFIND   LDA   ROOM
+         STA   RMOLD
+         LDX   #01
+         LDA   #>RMDIR
+         STA   CKLIN
+         LDA   #<RMDIR
+         STA   CKLIN+1
+RMLOP    CPX   ROOM
+         BEQ   RMDFD
+         INX
+         JSR   CREEP8
+         JMP   RMLOP
+RMDFD    LDA   (CKLIN),Y
+         BEQ   XCANT      
+         STA   RMHOLD
+         CMP   #08        
+         BNE   RMD1
+         LDA   FLAG1
+         BEQ   XCANT2     
+         JMP   RMD1
+XCANT    JMP   CANT
+XCANT2   JMP   CANT2
+RMD1     LDA   ROOM
+         CMP   OBJECT+36
+         BNE   RMD2
+         LDA   OBJECT+38
+         BNE   RMD2
+         LDA   #163
+         JMP   SYSMSG
+RMD2     LDA   ROOM
+         CMP   #36
+         BNE   RMD3
+         LDA   OBJECT+21
+         CMP   #$FF
+         BEQ   RMD2X
+         LDA   #71
+         JSR   SYSMSG
+         JMP   DEADY
+RMD2X    LDA   #183       
+         JSR   SYSMSG
+RMD3     LDA   ROOM
+         CMP   #45
+         BNE   RMD4
+         LDA   OBJECT+93
+         CMP   ROOM
+         BNE   RMD4
+         LDA   OBJECT+36
+         CMP   #$FF
+         BNE   NOSCAR
+         LDA   #78
+         JMP   SYSMSG
+NOSCAR   LDA   #76
+         JMP   SYSMSG
+RMD4     LDA   RMHOLD     
+         CMP   #50
+         BNE   RMD5
+         LDA   OBJECT+60
+         CMP   #$FF
+         BEQ   RMD4X
+         LDA   #84
+         JSR   SYSMSG
+         JMP   DEADY
+RMD4X    LDA   #184       
+         JSR   SYSMSG
+RMD5     LDA   RMHOLD     
+         STA   ROOM
+         TAY
+         DEY
+         LDA   DETAIL,Y
+         BEQ   RMRTS
+         LDA   BENBEF,Y
+         BNE   RMRTS
+         LDA   #00
+         STA   NOUNH
+         LDA   #01
+         STA   BENBEF,Y
+         JSR   LOOK
+         JMP   RMRTS
+CANT     LDA   ROOM       
+         CMP   #01
+         BNE   CANT1
+         CPY   #04
+         BNE   CANT1
+         LDA   #11
+         JSR   SYSMSG
+CANT1    LDA   ROOM
+         CMP   #15
+         BCC   CANTRTS
+         CMP   #31
+         BCS   CANTRTS
+         LDA   #162
+         JSR   SYSMSG
+         JMP   DEADY
+CANTRTS  LDA   #04
+         JSR   SYSMSG
+         RTS
+CANT2    LDA   #37
+         JMP   SYSMSG
+RMRTS    LDA   ROOM64+9   
+         BNE   RMX1
+         LDA   ROOM
+         CMP   #64
+         BNE   RMX1
+         LDA   RMOLD
+         STA   ROOM64+9
+RMX1     LDA   KOUNT      
+         BEQ   RMRTS1
+         DEC   KOUNT
+         BNE   RMRTS1
+         LDA   #64
+         STA   LEVEL2+4
+         STA   LEVEL3+4
+         STA   LEVEL4+4
+         STA   LEVEL5+4
+         LDA   #03
+         STA   RMDIR+10
+         LDA   #41
+         STA   TIMET2
+         LDA   ROOM
+         CMP   #13
+         BCS   OOOPS
+         LDA   #140
+         JMP   SYSMSG
+RMRTS1   RTS
+OOOPS    LDA   #141
+         JMP   SYSMSG
+*
+CREEP    CLC
+         LDA   CKLIN
+         ADC   #01
+         STA   CKLIN
+         BCC   SB1
+         INC   CKLIN+1
+SB1      RTS
+*
+CREEP8   CLC
+         LDA   CKLIN
+         ADC   #$0A       
+         STA   CKLIN
+         BCC   SB2
+         INC   CKLIN+1
+SB2      RTS
+*
+CREEP3   CLC
+         LDA   POINT
+         ADC   #03
+         STA   POINT
+         BCC   SB3
+         INC   POINT+1
+SB3      RTS
+*
+***********************
+*                     *
+*  ROOM DESCRIPTION   *
+*                     *
+***********************
+*
+DESCRP   LDA   #>RMDESC   
+         STA   CKLIN
+         LDA   #<RMDESC
+         STA   CKLIN+1
+         LDA   #00
+         STA   WNDTOP
+         LDA   SPLIT      
+         STA   WNDBTM
+         JSR   HOME
+         LDA   #04        
+         STA   SPLIT
+         STA   WNDBTM
+         JSR   HOME
+         LDA   ROOM
+         STA   RMNEW
+         LDY   #$00
+LOOP     SEC
+         LDA   RMNEW      
+         SBC   #$01
+         BEQ   FOUND
+         STA   RMNEW
+         LDY   #00
+RM1      LDA   (CKLIN),Y
+         BMI   REND1
+         JSR   CREEP
+         JMP   RM1
+REND1    CLC
+         LDA   CKLIN
+         ADC   #$01
+         STA   CKLIN       
+         BCC   LOOP
+         INC   CKLIN+1     
+         JMP   LOOP
+***********************
+*                     *
+*  PRINT LINE TO SCRN *
+*                     *
+***********************
+FOUND    LDA   (CKLIN),Y
+         AND   #$7F
+         EOR   #$80       
+         JSR   COUT
+         LDA   (CKLIN),Y
+         BPL   FND1
+         LDA   #$8D
+         JSR   COUT
+         RTS
+FND1     JSR   CREEP      
+         JMP   FOUND
+***********************
+* MESSAGE PRINT RTN.  *
+***********************
+SYSMSG   STA   RMNEW
+         LDA   #>SMSG
+         STA   CKLIN
+         LDA   #<SMSG
+         STA   CKLIN+1
+         LDY   #00
+         JMP   LOOP
+***********************
+* DIRECTION PRINT RTN *
+***********************
+PDIR     LDA   #15        
+         JSR   SYSMSG
+         LDX   #01
+         LDA   #>RMDIR
+         STA   CKLIN
+         LDA   #<RMDIR
+         STA   CKLIN+1
+RMLOP1   CPX   ROOM
+         BEQ   RMFD1
+         INX
+         JSR   CREEP8
+         JMP   RMLOP1
+RMFD1    LDA   #07        
+         STA   CH
+         LDA   #1
+         JSR   TABV
+         LDY   #00
+LPRM     LDA   (CKLIN),Y
+         BEQ   R2
+         JSR   DOUT
+R2       INY
+         CPY   #10
+         BNE   LPRM
+         RTS
+DOUT     LDA   DIRT1,Y
+         JSR   COUT
+         LDA   DIRT2,Y
+         CMP   #$A0       
+         BEQ   D7         
+         JSR   COUT
+         LDA   DIRT3,Y
+         CMP   #$A0
+         BEQ   D7
+         JSR   COUT
+         LDA   DIRT4,Y
+         CMP   #$A0
+         BEQ   D7
+         JSR   COUT
+         LDA   DIRT5,Y
+         CMP   #$A0
+         BEQ   D7
+         JSR   COUT
+D7       LDA   #$A0       
+         JSR   COUT
+         RTS
+DIRT1    ASC   /NNESSSWNUD/
+DIRT2    ASC   /OEAEOWEWPO/
+DIRT3    ASC   /R         S U S  W/
+DIRT4    ASC   /T         T T T  N/
+DIRT5    ASC   /H           H     /
+***********************
+* OBJECT PRINT RTN.   *
+***********************
+POBJ     LDA   #>OBJECT
+         STA   POINT
+         LDA   #<OBJECT
+         STA   POINT+1
+         LDA   #09        
+         STA   LEFT
+         LDA   #05        
+         STA   SPLIT
+         STA   WNDBTM
+         LDA   #00
+         STA   CH
+         LDA   #02
+         JSR   TABV
+         LDA   #17        
+         JSR   SYSMSG
+         LDA   #01
+         STA   TEMP1
+PLOP     LDY   #00
+         LDA   (POINT),Y
+         CMP   ROOM
+         BEQ   PFND
+PLOP1    JSR   CREEP3
+         LDA   TEMP1
+WWWWW    CMP   #49        
+         BCS   PDONE
+         INC   TEMP1
+         JMP   PLOP
+PDONE    DEC   CH         
+         BEQ   PD02       
+         DEC   CH
+         SEC
+         LDA   SPLIT
+         SBC   #03        
+         JSR   TABV
+         LDA   #$A0
+         JSR   COUT
+PD02     LDA   #00
+         STA   CH
+         LDA   SPLIT
+         SEC
+         SBC   #02        
+PD01     JSR   TABV
+         LDA   #30
+         JMP   SYSMSG
+PFND     LDA   #>OBJNAM
+         STA   CKLIN
+         LDA   #<OBJNAM
+         STA   CKLIN+1
+         LDA   TEMP1
+         STA   RMNEW
+         LDA   SPLIT
+         STA   WNDBTM
+         LDA   LEFT       
+         STA   CH
+         SEC
+         LDA   SPLIT
+         SBC   #03        
+         JSR   TABV
+         JSR   CLREOP
+         LDY   #00
+         JSR   DOG        
+         JMP   PLOP1      
+PF1      LDA   #19
+         JSR   TABV
+         LDA   #16
+         JSR   SYSMSG
+         RTS
+*************************
+* OBJECT PRINT ROUTINE  *
+*************************
+DOG      SEC
+         LDA   RMNEW
+         SBC   #$01
+         BEQ   ANIMAL     
+         STA   RMNEW
+         LDA   #00
+ANT      LDA   (CKLIN),Y
+         BMI   ASS
+         JSR   CREEP
+         JMP   ANT
+ASS      CLC
+         LDA   CKLIN
+         ADC   #01
+         STA   CKLIN
+         BCC   DOG
+         INC   CKLIN+1
+         JMP   DOG
+ANIMAL   LDA   CH
+         CMP   #39
+         BCS   ANIM2
+         LDA   (CKLIN),Y
+         AND   #$7F       
+         EOR   #$80
+         JSR   COUT
+         LDA   (CKLIN),Y
+         BPL   ANIM1
+         LDA   #$AC
+         JSR   COUT
+         LDA   #$A0
+         JSR   COUT
+         LDA   CH
+         STA   LEFT
+         LDY   #00
+         RTS
+ANIM1    INY   
+         LDA   CH
+         CMP   #37        
+         BCC   ANIMAL
+         LDA   LEFT
+         STA   CH
+         JSR   CLREOP
+ANIM2    LDY   #00
+         LDA   #01
+         STA   LEFT
+         STA   CH
+         INC   SPLIT
+         LDA   SPLIT
+         STA   WNDBTM
+         SEC
+         SBC   #03        
+         JSR   TABV
+         LDY   #00        
+         JMP   ANIMAL
+********************
+*  XYZZY RTN.      *
+********************
+XYZZY    LDA   #65
+         STA   ROOM
+         LDA   #180
+         JMP   SYSMSG
+         CHN   TIME.ONE

@@ -1,7 +1,7 @@
 
 # Adventure In Time   ![Badge Publisher]
 
-*Source code provided by **Paul Berker**.*
+*Source code provided by **[Paul Berker]**.*
 
 <br>
 
@@ -65,6 +65,8 @@
 <br>
 
 <!----------------------------------------------------------------------------->
+
+[Paul Berker]: https://slasherworld.com/
 
 [Interview]: https://archive.org/details/paul-berker-phoenix-software
 
